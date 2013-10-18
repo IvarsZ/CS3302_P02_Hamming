@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>hamming</groupId>
-  <artifactId>P02-Hammming</artifactId>
+  <artifactId>P02-Hamming</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>P02-Hammming</name>
+  <name>P02-Hamming</name>
   <url>http://maven.apache.org</url>
 
   <properties>
