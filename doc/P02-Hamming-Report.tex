@@ -1,0 +1,45 @@
+\documentclass{article}
+
+\usepackage{fixltx2e}
+\usepackage{amsfonts}
+
+\title{Hamming Codes and Error Correction}
+\author{100014525}
+\date{November 2013}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+
+A Hamming code $(2^r - 1, 2^r - r - 1, 3)$ for $r \in \mathbb{N}, r >= 2$ has a higher information rate when r is larger, but the chance of a non-correctable error is also higher. Thus this practical examines the trade-offs between these for different values of r and different probabilities p that any given bit in the channel is flipped.
+
+Another alternative of error detection is considered where the information is resent through the channel when an error is detected. The effective information rate is the information rate divided by how many times the code word was resent. In this case the effective information rate is used instead to determine code's efficiency. Note that this assumes that the cost of requests to resend is negligible.
+
+The program constructs a Hamming code for a given r to both encode and decode code words. It is able to detect errors of weight up to 3 and correct errors of weight 1. To do the experiments the program constructs Hamming codes for different values of r and then examines the information rate against the reliability of the code for channels of different error probability values p in both scenarios mentioned above.
+
+Extensions done:
+\begin{itemize}
+	\item The obtained results are presented using insightful visual representations.
+	\item A mathematical analysis that predicts the outcomes of the experiments based on r and p is provided.
+	\item Extended and punctured codes are implemented and considered in the analysis.
+\end{itemize}
+
+DESCRIBE THE EXTENSIONS HERE OR ABOVE? MAYBE LATER IN THE REPORT?
+
+\subsection{How to build and run}
+\begin{itemize}
+	\item Build using maven by executing the command: mvn package.
+	\item Run by executing the command: TODO.
+\end{itemize}
+
+\section{Hamming codes}
+
+TODO
+
+
+\section{Design and implementation}
+
+TODO
+
+\end{document}

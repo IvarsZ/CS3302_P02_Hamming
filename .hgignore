@@ -16,3 +16,9 @@ syntax: glob
 # Maven
 log/
 target/
+
+# Latex
+*.pdf
+*.aux
+*.swp
+*log
