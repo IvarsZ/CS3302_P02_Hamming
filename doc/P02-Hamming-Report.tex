@@ -2,6 +2,7 @@
 
 \usepackage{fixltx2e}
 \usepackage{amsfonts}
+\usepackage{amsmath}
 
 \title{Hamming Codes and Error Correction}
 \author{100014525}
@@ -35,11 +36,36 @@ DESCRIBE THE EXTENSIONS HERE OR ABOVE? MAYBE LATER IN THE REPORT?
 
 \section{Hamming codes}
 
-TODO
+Let $n=2^r-1$ and $m=2^r-r-1$. To construct a Hamming code $(n, m, 3)$ generate its parity check matrix $H$ in normal form. Arrange all n non-zero words of length $r$ as rows of $H$ in such a way that it has the $r \times r$ identity matrix $I'$ at the bottom of it. So
+
+\begin{center}
+$
+H =
+\begin{pmatrix}
+  X \\
+  I'
+\end{pmatrix}
+$
+\end{center}
+where $X$ consists of the words with weight at least two.
+
+
+Then get the $m \times n$ generator matrix $G$ by using
+$
+G =
+\begin{pmatrix}
+  I & X
+\end{pmatrix}
+$
+where $I$ is the $m \times m$ identity matrix. Next compute for each possible error $e$ (source word of weight at most 1) its syndrome $s=eH$ and create a map from syndromes to errors.
+
+Now we are ready to do encoding and decoding. To encode a source word of length $m$ multiply it by $G$. To decode a word $v$ compute its syndrome $vH$, look up the corresponding error and compute $u=v+e$. Then the first $m$ symbols of $u$ form the decoded word.
 
 
 \section{Design and implementation}
 
 TODO
+
+TODO - analyse code using rubocop.
 
 \end{document}
