@@ -16,8 +16,8 @@ public class HammingCode {
 	public HammingCode(int r) {
 
 		this.r = r;
-		this.n = (int) (Math.pow(2, r)) - 1;
-		this.m = (int) (Math.pow(2, r)) - r - 1;
+		n = (int) (Math.pow(2, r)) - 1;
+		m = (int) (Math.pow(2, r)) - r - 1;
 
 		generateParityCheckMatrix();
 		generateGeneratorMatrix();
@@ -56,7 +56,22 @@ public class HammingCode {
 	}
 
 	private void generateGeneratorMatrix() {
-
+		
+		int[][] generatorArray = new int[m][n];
+		
+		// Create the identity matrix.
+		for (int i = 0; i < m; i++) {
+			generatorArray[i][i] = 1;
+		}
+		
+		// Copy the non-identity matrix part matrix from the parity check matrix.
+		for (int row = 0; row < m; row++) {
+			for (int column = m; column < n; column++) {
+				generatorArray[row][column] = parityCheckMatrix.get(row, column - m);
+			}
+		}
+		
+		generatorMatrix = new BinaryMatrix(generatorArray);
 	}
 
 	private void generateSyndromeToErrorMap() {
