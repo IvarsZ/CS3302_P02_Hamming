@@ -1,5 +1,6 @@
 package hamming;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class HammingCode {
@@ -11,7 +12,7 @@ public class HammingCode {
 	private BinaryMatrix parityCheckMatrix;
 	private BinaryMatrix generatorMatrix;
 
-	private Map<BinaryMatrix, BinaryMatrix> syndromeToError; 
+	private Map<Long, BinaryMatrix> syndromeToErrorMap; 
 
 	public HammingCode(int r) {
 
@@ -30,6 +31,10 @@ public class HammingCode {
 
 	public BinaryMatrix getGeneratorMatrix() {
 		return generatorMatrix;
+	}
+	
+	public Map<Long, BinaryMatrix> getSyndromeToErrorMap() {
+		return syndromeToErrorMap;
 	}
 
 	private void generateParityCheckMatrix() {
@@ -75,7 +80,14 @@ public class HammingCode {
 	}
 
 	private void generateSyndromeToErrorMap() {
-
+		
+		syndromeToErrorMap = new HashMap<Long, BinaryMatrix>();
+		
+		for (int i = 0; i <= n; i++) {
+			BinaryMatrix error = new BinaryMatrix(new int[][]{toBinary(i, n)});
+			BinaryMatrix syndrome = error.multiplyWith(parityCheckMatrix);
+			syndromeToErrorMap.put(syndrome.rowToLong(0), error);
+		}
 	}
 
 	// TODO util class?
