@@ -2,6 +2,7 @@ package hamming;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 public class HammingCode {
 
@@ -24,6 +25,24 @@ public class HammingCode {
 		generateGeneratorMatrix();
 		generateSyndromeToErrorMap();	
 	}
+	
+	public BinaryMatrix encode(BinaryMatrix sourceWord) {
+		return sourceWord.multiplyWith(getGeneratorMatrix());
+	}
+	
+	public BinaryMatrix decode(BinaryMatrix codeWord) {
+		
+		BinaryMatrix syndrome = codeWord.multiplyWith(parityCheckMatrix);
+		BinaryMatrix error = syndromeToErrorMap.get(syndrome.rowToLong(0));
+		BinaryMatrix sentCodeWord = codeWord.add(error);
+		
+		int[][] sentSourceWord = new int[1][m];
+		for (int i = 0; i < m; i++) {
+			sentSourceWord[0][i] = sentCodeWord.get(0, i);
+		}
+		
+		return new BinaryMatrix(sentSourceWord);
+	}
 
 	public BinaryMatrix getParityCheckMatrix() {
 		return parityCheckMatrix;
@@ -35,6 +54,14 @@ public class HammingCode {
 	
 	public Map<Long, BinaryMatrix> getSyndromeToErrorMap() {
 		return syndromeToErrorMap;
+	}
+	
+	//TODO delete
+	public void printMap() {
+		for ( Entry<Long, BinaryMatrix> entries : getSyndromeToErrorMap().entrySet()) {
+			System.out.println(Long.toBinaryString(entries.getKey()));
+			entries.getValue().print();
+		}
 	}
 
 	private void generateParityCheckMatrix() {
@@ -84,14 +111,14 @@ public class HammingCode {
 		syndromeToErrorMap = new HashMap<Long, BinaryMatrix>();
 		
 		for (int i = 0; i <= n; i++) {
-			BinaryMatrix error = new BinaryMatrix(new int[][]{toBinary(i, n)});
+			BinaryMatrix error = new BinaryMatrix(new int[][]{toBinary((long) Math.pow(2, i), n)});
 			BinaryMatrix syndrome = error.multiplyWith(parityCheckMatrix);
 			syndromeToErrorMap.put(syndrome.rowToLong(0), error);
 		}
 	}
 
 	// TODO util class?
-	private int[] toBinary(int number, int base) {
+	public int[] toBinary(long number, int base) {
 		int[] ret = new int[base];
 		for (int i = 0; i < base; i++) {
 			

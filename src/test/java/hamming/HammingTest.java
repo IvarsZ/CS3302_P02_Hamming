@@ -39,6 +39,7 @@ public class HammingTest extends TestCase {
 		assertEquals(new BinaryMatrix(expected), rIs3Code.getGeneratorMatrix());
 	}
 
+	// TODO update when finished.
 	public void testSyndromeToErrorMap() {
 
 		// For r = 3, the mappings should be:
@@ -67,5 +68,41 @@ public class HammingTest extends TestCase {
 
 		// 111 to 0001000.
 		assertEquals(new BinaryMatrix(new int[][]{{0, 0, 0, 0, 1, 1, 1}}), syndromeToError.get(new BinaryMatrix(new int[][]{{1, 1, 1}}).rowToLong(0)));
+	}
+
+	public void testEncodeDecode() {
+
+		// All source words should be the same when encoded and decoded.
+		for (int i = 0; i < 16; i++) {
+			BinaryMatrix sourceWord = new BinaryMatrix(new int[][]{rIs3Code.toBinary(i, 4)});
+			assertEquals(sourceWord, rIs3Code.decode(rIs3Code.encode(sourceWord)));
+		}
+	}
+	
+	public void testEncodeDecodeWithErrors() {
+
+		// All source words should be the same when encoded and decoded.
+		for (int i = 0; i < 16; i++) {
+			BinaryMatrix sourceWord = new BinaryMatrix(new int[][]{rIs3Code.toBinary(i, 4)});
+			BinaryMatrix encodedWord = rIs3Code.encode(sourceWord);
+			
+			// Try all possible weight 1 errors.
+			for (int j = 0; j < 7; j++) {
+				BinaryMatrix error = new BinaryMatrix(new int[][]{rIs3Code.toBinary((int) Math.pow(2, j), 7)});
+				BinaryMatrix encodedWordWithError = encodedWord.add(error);
+				
+				/*
+				System.out.println("sourceWord");
+				sourceWord.print();
+				System.out.println("encodedWordWithError");
+				encodedWordWithError.print();
+				System.out.println("error");
+				error.print();
+				System.out.println("decodedWord");
+				rIs3Code.decode(encodedWordWithError).print();
+				*/
+				assertEquals(sourceWord, rIs3Code.decode(encodedWordWithError));
+			}
+		}
 	}
 }

@@ -1,6 +1,5 @@
 package hamming;
 
-import java.util.Arrays;
 
 public class BinaryMatrix {
 
@@ -13,6 +12,19 @@ public class BinaryMatrix {
 
 	public BinaryMatrix(int[][] binaryMatrix) {
 		this.binaryMatrix = binaryMatrix;
+	}
+	
+	public BinaryMatrix add(BinaryMatrix error) {
+		
+		int[][] sum = new int[getNumberOfRows()][getNumberOfColumns()];
+		for (int row = 0; row < getNumberOfRows(); row++) {
+			for (int column = 0; column < getNumberOfColumns(); column++) {
+				
+				sum[row][column] = (get(row, column) + error.get(row, column)) % 2;
+			}
+		}
+		
+		return new BinaryMatrix(sum);
 	}
 
 	public BinaryMatrix multiplyWith(BinaryMatrix factor) {
@@ -114,5 +126,4 @@ public class BinaryMatrix {
 
 		return false;
 	}
-
 }
