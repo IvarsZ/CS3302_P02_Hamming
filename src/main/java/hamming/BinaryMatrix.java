@@ -73,11 +73,11 @@ public class BinaryMatrix {
 		return binaryMatrix[0].length;
 	}
 	
-	public long rowToLong(int row) {
+	public int rowToInt(int row) {
 		
-		long rowAsLong = 0;
-		long powerOf2 = 1;
-		for (int column = 0; column < getNumberOfColumns(); column++) {
+		int rowAsLong = 0;
+		int powerOf2 = 1;
+		for (int column = getNumberOfColumns() - 1; column >= 0; column--) {
 			
 			rowAsLong += get(row, column) * powerOf2;
 			powerOf2 *= 2;
