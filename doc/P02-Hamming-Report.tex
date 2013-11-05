@@ -57,7 +57,7 @@ G =
   I & X
 \end{pmatrix}
 $
-where $I$ is the $m \times m$ identity matrix. Next compute for each possible error $e$ (source word of weight at most 1) its syndrome $s=eH$ and create a map from syndromes to errors.
+where $I$ is the $m \times m$ identity matrix. Next compute for each possible error $e$ (source word of weight at most 1) its syndrome $s=eH$ and map from syndromes to errors.
 
 Now we are ready to do encoding and decoding. To encode a source word of length $m$ multiply it by $G$. To decode a word $v$ compute its syndrome $vH$, look up the corresponding error and compute $u=v+e$. Then the first $m$ symbols of $u$ form the decoded word.
 
@@ -66,6 +66,7 @@ Now we are ready to do encoding and decoding. To encode a source word of length 
 
 TODO
 
-TODO - analyse code using rubocop.
+The map from syndromes to errors isn't actually stored. Notice that if the i-th entry in the error vector is 1, then the corresponding syndrome is the i-th row of parity check matrix H. Therefore we arrange the rows of H in a specific order. Associate a row of H with the integer it forms when converted from the binary form to decimal, then the rows of weight 1 are powers 2, while the rest are not powers of 2. The rows of weight 1 form the identity matrix at the bottom and are arranged in descending order. The rows of higher weight are at the top and are arranged in ascending order. Now when mapping a syndrome to an error it is converted to decimal form d and its row number (?) is found. If it is a power 2 then the row number is $n - log_2(d) - 1$, otherwise it is $errorIndex - \lfloor(log_2(d))\rfloor - 2$.
+ to determine the bit that is flipped by the error.
 
 \end{document}

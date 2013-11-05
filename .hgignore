@@ -21,4 +21,6 @@ target/
 *.pdf
 *.aux
 *.swp
-*log
+*.log
+*.bbl
+*.blg
