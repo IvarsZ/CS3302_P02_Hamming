@@ -112,6 +112,10 @@ public class HammingCode {
 		
 		return -1;
 	}
+	
+	public double getInformationRate() {
+		return ((double) getSourceWordLength())/getCodeWordLength();
+	}
 
 	/**
 	 * Getter for the parity check matrix.

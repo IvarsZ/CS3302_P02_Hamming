@@ -68,5 +68,7 @@ TODO
 
 The map from syndromes to errors isn't actually stored. Notice that if the i-th entry in the error vector is 1, then the corresponding syndrome is the i-th row of parity check matrix H. Therefore we arrange the rows of H in a specific order. Associate a row of H with the integer it forms when converted from the binary form to decimal, then the rows of weight 1 are powers 2, while the rest are not powers of 2. The rows of weight 1 form the identity matrix at the bottom and are arranged in descending order. The rows of higher weight are at the top and are arranged in ascending order. Now when mapping a syndrome to an error it is converted to decimal form d and its row number (?) is found. If it is a power 2 then the row number is $n - log_2(d) - 1$, otherwise it is $errorIndex - \lfloor(log_2(d))\rfloor - 2$.
  to determine the bit that is flipped by the error.
+ 
+ Does information source matters?
 
 \end{document}
